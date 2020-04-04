@@ -1,8 +1,19 @@
 'use strict';
 
-var respponse = require('./res');
+var response = require('./res');
 var connection = require('./koneksi');
 
 exports.index = function(req,res){
-    respponse.ok("Aplikasi Rest Api ku berjalan")
+    response.ok("Aplikasi Rest Api ku berjalan", res)
+};
+
+//menampilkan semua data mahaiswa
+exports.tampilsemuamahasiswa = function(req,res){
+    connection.query('SELECT * FROM mahasiswa', function(error, rows, fileds){
+      if(error){
+          connection.log(error);
+      } else{
+          response.ok(rows, res)
+      } 
+    });
 };
